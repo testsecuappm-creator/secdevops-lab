@@ -27,3 +27,14 @@ jobs :
             uses: gitleaks/gitleaks-action@v2
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          - name: Generate SBOM
+            uses: anchore/sbom-action@v0
+            with:
+                format: cyclonedx-json
+                output-file: sbom.json
+          - name: Scan SBOM with Grype
+            uses: anchore/scan-action@v6
+            with:
+              sbom: sbom.json
+              fail-build: true
+              severity-cutoff: high
