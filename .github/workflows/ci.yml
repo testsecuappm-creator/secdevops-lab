@@ -33,7 +33,7 @@ jobs :
                 format: cyclonedx-json
                 output-file: sbom.json
           - name: Scan SBOM with Grype
-            uses: anchore/scan-action@v4
+            uses: anchore/scan-action@v6
             with:
               sbom: sbom.json
               fail-build: true
